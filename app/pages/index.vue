@@ -3,87 +3,151 @@ definePageMeta({
   layout: 'front'
 })
 
-const router = useRouter()
+import { ref } from 'vue'
+
+const mobileMenuOpen = ref(false)
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
-    <div class="text-center max-w-4xl mx-auto p-8">
-      <!-- Logo -->
-      <div class="mb-8">
-        <h1 class="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-          Nuxt Dashboard
-        </h1>
-        <p class="text-xl text-gray-600 dark:text-gray-300">
-          A modern admin dashboard built with Nuxt 4, Shadcn Vue, and TailwindCSS
-        </p>
-      </div>
-
-      <!-- Main Content -->
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
-        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-          Welcome to our Dashboard
-        </h2>
-        <p class="text-gray-600 dark:text-gray-300 mb-6">
-          This is the public front page of our application. Access the admin dashboard to manage your account, view analytics, and more.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+  <div class="min-h-screen flex flex-col">
+    <!-- Header/Navigation -->
+    <header class="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
+      <div class="@container/main px-4 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <h1 class="text-sm md:text-xl font-semibold text-gray-900 dark:text-white">
+              清华大学膜生物学国家重点实验室
+            </h1>
+          </div>
+          
+          <!-- Mobile Menu Button -->
           <button 
-            @click="router.push('/admin')"
-            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+            class="md:hidden text-gray-700 dark:text-gray-300"
+            @click="mobileMenuOpen = !mobileMenuOpen"
           >
-            Access Admin Dashboard
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
           </button>
-          <button 
-            @click="router.push('/login')"
-            class="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium rounded-lg transition-colors"
-          >
-            Login
-          </button>
+          
+          <!-- Desktop Navigation -->
+          <nav class="hidden md:flex items-center space-x-6">
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              实验室概况
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              科研团队
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              科研平台
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              新闻中心
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              党群文化
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              人才招聘
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+              联系我们
+            </a>
+          </nav>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div v-if="mobileMenuOpen" class="md:hidden mt-4 pb-4 border-t border-gray-200 dark:border-gray-700">
+          <nav class="flex flex-col space-y-3">
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors py-2">
+              实验室概况
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors py-2">
+              科研团队
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors py-2">
+              科研平台
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors py-2">
+              新闻中心
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors py-2">
+              党群文化
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors py-2">
+              人才招聘
+            </a>
+            <a href="#" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors py-2">
+              联系我们
+            </a>
+          </nav>
         </div>
       </div>
+    </header>
 
-      <!-- Features -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-          <div class="text-blue-500 dark:text-blue-400 text-3xl mb-4">
-            📊
+    <!-- Main Banner -->
+    <main class="flex-1">
+      <div class="relative w-full h-[400px] md:h-[600px]">
+        <img 
+          src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Interior%20of%20a%20modern%20conference%20hall%20with%20a%20large%20purple%20stage%20backdrop%20featuring%20Chinese%20text%20about%20Tsinghua%20University%20laboratory%20opening%20ceremony%2C%20professional%20lighting%2C%20wooden%20walls%2C%20academic%20atmosphere&image_size=landscape_16_9" 
+          alt="实验室揭牌仪式" 
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+          <div class="text-center text-white px-4">
+            <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-2">
+              清华大学膜生物学国家重点实验室
+            </h2>
+            <h3 class="text-xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
+              膜结构及人工智能生物学分室
+            </h3>
+            <p class="text-sm md:text-lg mb-2">
+              暨清华大学-北京大学生命科学联合中心
+            </p>
+            <p class="text-sm md:text-lg">
+              2024年暑期学校启动仪式
+            </p>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            Analytics
-          </h3>
-          <p class="text-gray-600 dark:text-gray-300">
-            Track your website's performance with detailed analytics
-          </p>
         </div>
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-          <div class="text-green-500 dark:text-green-400 text-3xl mb-4">
-            ✅
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-6 md:py-8">
+      <div class="@container/main px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div>
+            <h4 class="text-base md:text-lg font-semibold text-white mb-3 md:mb-4">
+              清华大学膜生物学国家重点实验室
+            </h4>
+            <p class="text-xs md:text-sm mb-2">
+              膜结构及人工智能生物学分室
+            </p>
+            <p class="text-xs md:text-sm">
+              清华大学生命科学院
+            </p>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            Task Management
-          </h3>
-          <p class="text-gray-600 dark:text-gray-300">
-            Organize and prioritize your tasks efficiently
-          </p>
+          <div class="text-xs md:text-sm">
+            <p class="mb-1">
+              <span class="text-gray-300">公司：</span> 膜生物学国家重点实验室膜结构及人工智能生物学分室
+            </p>
+            <p class="mb-1">
+              <span class="text-gray-300">电话：</span> 0571-61109099
+            </p>
+            <p class="mb-1">
+              <span class="text-gray-300">邮箱：</span> thu-msi@othu-msa.org.cn
+            </p>
+            <p>
+              <span class="text-gray-300">地址：</span> 浙江省杭州市临安区青山湖街道大园路1623号强国分量室
+            </p>
+          </div>
         </div>
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-          <div class="text-purple-500 dark:text-purple-400 text-3xl mb-4">
-            🎨
-          </div>
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            Customizable
-          </h3>
-          <p class="text-gray-600 dark:text-gray-300">
-            Personalize your dashboard with themes and layouts
+        <div class="border-t border-gray-700 mt-4 md:mt-6 pt-4 md:pt-6 text-xs text-center">
+          <p class="leading-relaxed">
+            Copyright © 2025 膜生物学国家重点实验室膜结构及人工智能生物学分室 版权所有 | ICP备2025166305号-1
           </p>
         </div>
       </div>
-
-      <!-- Footer -->
-      <footer class="text-gray-500 dark:text-gray-400 text-sm">
-        <p>© {{ new Date().getFullYear() }} Nuxt Dashboard. All rights reserved.</p>
-      </footer>
-    </div>
+    </footer>
   </div>
 </template>
