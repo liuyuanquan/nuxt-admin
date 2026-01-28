@@ -45,7 +45,7 @@ const router = useRouter()
 
 defineShortcuts({
   'G-H': () => router.push('/'),
-  'G-E': () => router.push('/email'),
+  'G-E': () => router.push('/admin/email'),
 })
 
 const textDirection = useTextDirection({ initialValue: 'ltr' })
@@ -59,13 +59,10 @@ const dir = computed(() => textDirection.value === 'rtl' ? 'rtl' : 'ltr')
         <NuxtLayout>
           <NuxtPage />
         </NuxtLayout>
-
         <AppSettings />
       </div>
-
       <Toaster :theme="colorMode.preference as any || 'system'" />
     </ConfigProvider>
-
     <Analytics />
   </Body>
 </template>

@@ -1,200 +1,89 @@
 <script setup lang="ts">
-import NumberFlow from '@number-flow/vue'
-import { TrendingDown, TrendingUp, TrendingUpIcon } from 'lucide-vue-next'
-
-const dataCard = ref({
-  totalRevenue: 0,
-  newCustomers: 0,
-  activeAccount: 0,
-  growthRate: 0,
+definePageMeta({
+  layout: 'front'
 })
 
-onMounted(() => {
-  dataCard.value = {
-    totalRevenue: 1250.44,
-    newCustomers: 1234,
-    activeAccount: 45678,
-    growthRate: 4.5,
-  }
-})
-
-const timeRange = ref('30d')
-
-const isDesktop = useMediaQuery('(min-width: 768px)')
-watch(isDesktop, () => {
-  if (isDesktop.value) {
-    timeRange.value = '30d'
-  }
-  else {
-    timeRange.value = '7d'
-  }
-}, { immediate: true })
+const router = useRouter()
 </script>
 
 <template>
-  <div class="w-full flex flex-col gap-4">
-    <div class="flex flex-wrap items-center justify-between gap-2">
-      <h2 class="text-2xl font-bold tracking-tight">
-        Dashboard
-      </h2>
-      <div class="flex items-center space-x-2">
-        <BaseDateRangePicker />
-        <Button>Download</Button>
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
+    <div class="text-center max-w-4xl mx-auto p-8">
+      <!-- Logo -->
+      <div class="mb-8">
+        <h1 class="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+          Nuxt Dashboard
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300">
+          A modern admin dashboard built with Nuxt 4, Shadcn Vue, and TailwindCSS
+        </p>
       </div>
+
+      <!-- Main Content -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+          Welcome to our Dashboard
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+          This is the public front page of our application. Access the admin dashboard to manage your account, view analytics, and more.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button 
+            @click="router.push('/admin')"
+            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+          >
+            Access Admin Dashboard
+          </button>
+          <button 
+            @click="router.push('/login')"
+            class="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium rounded-lg transition-colors"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+          <div class="text-blue-500 dark:text-blue-400 text-3xl mb-4">
+            📊
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            Analytics
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Track your website's performance with detailed analytics
+          </p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+          <div class="text-green-500 dark:text-green-400 text-3xl mb-4">
+            ✅
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            Task Management
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Organize and prioritize your tasks efficiently
+          </p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+          <div class="text-purple-500 dark:text-purple-400 text-3xl mb-4">
+            🎨
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            Customizable
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Personalize your dashboard with themes and layouts
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="text-gray-500 dark:text-gray-400 text-sm">
+        <p>© {{ new Date().getFullYear() }} Nuxt Dashboard. All rights reserved.</p>
+      </footer>
     </div>
-    <main class="@container/main flex flex-1 flex-col gap-4 md:gap-8">
-      <div class="grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
-        <Card class="@container/card">
-          <CardHeader>
-            <CardDescription>Total Revenue</CardDescription>
-            <CardTitle class="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              <NumberFlow
-                :value="dataCard.totalRevenue"
-                :format="{ style: 'currency', currency: 'USD', trailingZeroDisplay: 'stripIfInteger' }"
-              />
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <TrendingUpIcon />
-                +12.5%
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter class="flex-col items-start gap-1.5 text-sm">
-            <div class="line-clamp-1 flex gap-2 font-medium">
-              Trending up this month <TrendingUp class="size-4" />
-            </div>
-            <div class="text-muted-foreground">
-              Visitors for the last 6 months
-            </div>
-          </CardFooter>
-        </Card>
-        <Card class="@container/card">
-          <CardHeader>
-            <CardDescription>New Customers</CardDescription>
-            <CardTitle class="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              <NumberFlow
-                :value="dataCard.newCustomers"
-              />
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <TrendingDown />
-                -20%
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter class="flex-col items-start gap-1.5 text-sm">
-            <div class="line-clamp-1 flex gap-2 font-medium">
-              Down 20% this period <TrendingDown class="size-4" />
-            </div>
-            <div class="text-muted-foreground">
-              Acquisition needs attention
-            </div>
-          </CardFooter>
-        </Card>
-        <Card class="@container/card">
-          <CardHeader>
-            <CardDescription>Active Accounts</CardDescription>
-            <CardTitle class="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              <NumberFlow
-                :value="dataCard.activeAccount"
-              />
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <TrendingUp />
-                +12.5%
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter class="flex-col items-start gap-1.5 text-sm">
-            <div class="line-clamp-1 flex gap-2 font-medium">
-              Strong user retention <TrendingUp class="size-4" />
-            </div>
-            <div class="text-muted-foreground">
-              Engagement exceed targets
-            </div>
-          </CardFooter>
-        </Card>
-        <Card class="@container/card">
-          <CardHeader>
-            <CardDescription>Growth Rate</CardDescription>
-            <CardTitle class="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              <NumberFlow
-                :value="dataCard.growthRate"
-                suffix="%"
-              />
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <TrendingUp />
-                +4.5%
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter class="flex-col items-start gap-1.5 text-sm">
-            <div class="line-clamp-1 flex gap-2 font-medium">
-              Steady performance increase <TrendingUp class="size-4" />
-            </div>
-            <div class="text-muted-foreground">
-              Meets growth projections
-            </div>
-          </CardFooter>
-        </Card>
-      </div>
-      <Card class="@container/card">
-        <CardHeader>
-          <CardTitle>Total Visitors</CardTitle>
-          <CardDescription>
-            <span className="hidden @[540px]/card:block">
-              Total for the last 3 months
-            </span>
-            <span className="@[540px]/card:hidden">Last 3 months</span>
-          </CardDescription>
-          <CardAction>
-            <ToggleGroup
-              v-model="timeRange"
-              type="single"
-              variant="outline"
-              class="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
-            >
-              <ToggleGroupItem value="90d">
-                Last 3 months
-              </ToggleGroupItem>
-              <ToggleGroupItem value="30d">
-                Last 30 days
-              </ToggleGroupItem>
-              <ToggleGroupItem value="7d">
-                Last 7 days
-              </ToggleGroupItem>
-            </ToggleGroup>
-            <Select v-model="timeRange">
-              <SelectTrigger
-                class="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate @[767px]/card:hidden"
-                size="sm"
-                aria-label="Select a value"
-              >
-                <SelectValue placeholder="Last 3 months" />
-              </SelectTrigger>
-              <SelectContent class="rounded-xl">
-                <SelectItem value="90d" class="rounded-lg">
-                  Last 3 months
-                </SelectItem>
-                <SelectItem value="30d" class="rounded-lg">
-                  Last 30 days
-                </SelectItem>
-                <SelectItem value="7d" class="rounded-lg">
-                  Last 7 days
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </CardAction>
-        </CardHeader>
-        <CardContent>
-          <DashboardTotalVisitors :time-range="timeRange" />
-        </CardContent>
-      </Card>
-    </main>
   </div>
 </template>
